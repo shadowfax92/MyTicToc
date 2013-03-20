@@ -1,0 +1,3 @@
+# Partial Tkenv config file -- see $HOME/.tkenvrc as well
+inspector "Tictoc" "Tictoc" "2" "565x342+52+52:normal"
+

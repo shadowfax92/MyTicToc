@@ -1,0 +1,3 @@
+package mytictoc;
+
+@license(LGPL);
