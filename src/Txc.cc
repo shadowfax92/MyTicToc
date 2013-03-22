@@ -12,9 +12,9 @@ Txc::~Txc() {
 }
 
 void Txc::initialize() {
-
+    counter=par("limit");
     WATCH(counter);
-    if (strcmp("Tic", getName()) == 0) {
+    if (par("sendInitMessage").boolValue()==true) {
 
         cMessage *msg = new cMessage("tictocMsg");
         send(msg, "out");
