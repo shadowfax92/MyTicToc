@@ -6,6 +6,7 @@
 
 class Txc : public cSimpleModule {
 public:
+    int counter;
     Txc();
     virtual ~Txc();
     virtual void initialize();

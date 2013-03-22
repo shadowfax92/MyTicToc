@@ -4,6 +4,7 @@ simple Txc
 {
     parameters:
         @display("i=block/telnet");
+        bool sendInitMessage=default(false);
     gates:
         input in;
         output out;
@@ -22,5 +23,5 @@ network Tictoc
         }
     connections:
         Tic.out --> {  delay = 100ms; } --> Toc.in;
-        Toc.out --> {  delay = 100ms; } --> Tic.in;
+        Toc.out --> {  delay = 200ms; } --> Tic.in;
 }

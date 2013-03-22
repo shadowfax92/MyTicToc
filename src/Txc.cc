@@ -12,6 +12,8 @@ Txc::~Txc() {
 }
 
 void Txc::initialize() {
+
+    WATCH(counter);
     if (strcmp("Tic", getName()) == 0) {
 
         cMessage *msg = new cMessage("tictocMsg");
