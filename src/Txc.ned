@@ -5,6 +5,7 @@ simple Txc
     parameters:
         @display("i=block/telnet");
         bool sendInitMessage=default(false);
+        double delayTime=default(5.0);
         int limit=default(20);
     gates:
         input in;
