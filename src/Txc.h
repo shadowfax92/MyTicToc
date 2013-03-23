@@ -7,6 +7,8 @@
 class Txc : public cSimpleModule {
 public:
     int counter;
+    cMessage *tictocmsg;
+    cMessage *event;
     Txc();
     virtual ~Txc();
     virtual void initialize();

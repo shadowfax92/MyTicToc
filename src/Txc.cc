@@ -3,25 +3,29 @@
 Define_Module(Txc);
 
 Txc::Txc() {
-    // TODO Auto-generated constructor stub
-
+    tictocmsg=NULL;
+    event=NULL;
 }
 
 Txc::~Txc() {
-    // TODO Auto-generated destructor stub
 }
 
 void Txc::initialize() {
+    //creating event object which will be used for timing
+    event=new cMessage("event");
+
     counter=par("limit");
     WATCH(counter);
     if (par("sendInitMessage").boolValue()==true) {
 
-        cMessage *msg = new cMessage("tictocMsg");
-        send(msg, "out");
+        tictocmsg=new cMessage("tictocmsg");
+        //scheduling tictoc message at 5.0 simulation time
+        scheduleAt(5.0,tictocmsg);
     }
 }
 
 void Txc::handleMessage(cMessage *msg) {
+/*
     counter--;
     if(counter==0)
     {
@@ -35,5 +39,18 @@ void Txc::handleMessage(cMessage *msg) {
     send(msg, "out");
     }
 //    send(msg, "out");
+*/
+
+    //if message is self message then the wait is over... send it
+    if(msg==event)//you use this too  if(msg->isSelfMessage())
+    {
+        EV << "wait is over... send message";
+        send(tictocmsg,"out");
+    }
+    else
+    {
+       EV << "schedule message to wait";
+       scheduleAt(simTime()+1.0,event);
+    }
 }
 
