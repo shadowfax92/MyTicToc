@@ -1,18 +1,15 @@
 #include "Txc3.h"
 
-namespace TicToc3 {
-
+Define_Module(Txc3);
 Txc3::Txc3() {
-    // TODO Auto-generated constructor stub
-
 }
 
 Txc3::~Txc3() {
-    // TODO Auto-generated destructor stub
 }
 
 void Txc3::initialize()
 {
+
     if(getIndex()==0)
     {
         EV << "message generated";
@@ -41,5 +38,3 @@ void Txc3::forwardMessage(cMessage *msg)
     EV << "forwarding on port k="<<k<<" at node="<<getIndex();
     send(msg,"out",k);
 }
-
-} /* namespace TicToc3 */

@@ -27,8 +27,8 @@ PROJECT_OUTPUT_DIR = ../out
 PROJECTRELATIVE_PATH = src
 O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 
-# Object files for local .cc and .msg files
-OBJS = $O/Txc.o
+# Object files for local .cpp and .msg files
+OBJS = $O/Txc3.o
 
 # Message files
 MSGFILES =
@@ -86,29 +86,28 @@ $O/$(TARGET): $(OBJS)  $(wildcard $(EXTRA_OBJS)) Makefile
 
 .PHONY: all clean cleanall depend msgheaders
 
-.SUFFIXES: .cc
+.SUFFIXES: .cpp
 
-$O/%.o: %.cc $(COPTS_FILE)
+$O/%.o: %.cpp $(COPTS_FILE)
 	@$(MKPATH) $(dir $@)
 	$(CXX) -c $(COPTS) -o $@ $<
 
-%_m.cc %_m.h: %.msg
-	$(MSGC) -s _m.cc $(MSGCOPTS) $?
+%_m.cpp %_m.h: %.msg
+	$(MSGC) -s _m.cpp $(MSGCOPTS) $?
 
 msgheaders: $(MSGFILES:.msg=_m.h)
 
 clean:
 	-rm -rf $O
 	-rm -f MyTicToc MyTicToc.exe libMyTicToc.so libMyTicToc.a libMyTicToc.dll libMyTicToc.dylib
-	-rm -f ./*_m.cc ./*_m.h
+	-rm -f ./*_m.cpp ./*_m.h
 
 cleanall: clean
 	-rm -rf $(PROJECT_OUTPUT_DIR)
 
 depend:
-	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc
+	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cpp
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
-$O/Txc.o: Txc.cc \
-	Txc.h
+$O/Txc3.o: Txc3.cpp
 
