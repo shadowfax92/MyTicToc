@@ -22,7 +22,18 @@ void Txc::initialize() {
 }
 
 void Txc::handleMessage(cMessage *msg) {
+    counter--;
+    if(counter==0)
+    {
+        EV << getName() << "counter reached zero, so deleting the message";
+        delete msg;
+    }
+    else
+    {
+        EV << getName() << "counter value="<<counter;
     // just send back the message we received
     send(msg, "out");
+    }
+//    send(msg, "out");
 }
 
