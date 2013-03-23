@@ -21,6 +21,7 @@ void Txc::initialize() {
         tictocmsg=new cMessage("tictocmsg");
         //scheduling tictoc message at 5.0 simulation time
         scheduleAt(5.0,tictocmsg);
+
     }
 }
 
@@ -46,11 +47,14 @@ void Txc::handleMessage(cMessage *msg) {
     {
         EV << "wait is over... send message";
         send(tictocmsg,"out");
+        tictocmsg=NULL;
     }
     else
     {
        EV << "schedule message to wait";
+       tictocmsg=msg;
        scheduleAt(simTime()+1.0,event);
+
     }
 }
 
