@@ -7,6 +7,7 @@
 class Txc : public cSimpleModule {
 public:
     int counter;
+    simtime_t delay;
     cMessage *tictocmsg;
     cMessage *event;
     Txc();

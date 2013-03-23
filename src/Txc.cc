@@ -51,9 +51,10 @@ void Txc::handleMessage(cMessage *msg) {
     }
     else
     {
-       EV << "schedule message to wait";
+        delay=par("delayTime");
+       EV << "schedule message to wait. Delay="<<delay;
        tictocmsg=msg;
-       scheduleAt(simTime()+1.0,event);
+       scheduleAt(simTime()+delay,event);
 
     }
 }
