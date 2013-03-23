@@ -4,6 +4,11 @@
 #include<omnetpp.h>
 #include<string.h>
 
+/**
+ * Idea - Message is transmitted between randomly until it arrives at
+ * a particular destination where it is deleted.
+ */
+
 namespace TicToc3 {
 
 class Txc3: public cSimpleModule {
@@ -12,6 +17,7 @@ public:
     virtual ~Txc3();
     virtual void initialize();
     virtual void handleMessage(cMessage *msg);
+    void forwardMessage(cMessage *msg);
 };
 
 } /* namespace TicToc3 */
