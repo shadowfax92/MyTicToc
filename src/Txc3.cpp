@@ -1,5 +1,4 @@
 #include "Txc3.h"
-#include "TicTocMsg13_m.h"
 
 Define_Module(Txc3);
 Txc3::Txc3() {
@@ -7,7 +6,16 @@ Txc3::Txc3() {
 
 Txc3::~Txc3() {
 }
-TicTocMsg13 Txc3::generateMessage() {
+void Txc3::initialize() {
+
+    if (getIndex() == 0) {
+        EV << "message generated";
+        TicTocMsg13 *msg = generateMessage();
+        scheduleAt(0.0, msg);
+    }
+}
+
+TicTocMsg13 *Txc3::generateMessage() {
     int src = getIndex();
     int n = size();
     int dest = intuniform(0, n - 1);
@@ -19,33 +27,38 @@ TicTocMsg13 Txc3::generateMessage() {
     TicTocMsg13 *msg = new TicTocMsg13(msg_name);
     msg->setSource(src);
     msg->setDestination(dest);
-    msg->setHopcount(0);
+    //msg->setHopCount(0);
 
     return msg;
 }
-void Txc3::initialize() {
 
-    if (getIndex() == 0) {
-        EV << "message generated";
-        cMessage *msg = new cMessage("ticmsg");
-        scheduleAt(0.0, msg);
-    }
-}
 void Txc3::handleMessage(cMessage *msg) {
+    //cast the message
+    TicTocMsg13 *casted_msg=check_and_cast<TicTocMsg13 *>(msg);
+
     //when message arrives at destination 3 then message has arrived
-    if (getIndex() == 3) {
-        EV << "message arrived at the destination 3";
-        bubble("message arrived at destination 3");
+    if (casted_msg->getDestination()==getIndex()) {
+        char *printing_msg;
+        sprintf(printing_msg,"message arrived at destination=%d and hopcount",getIndex());
+        EV <<printing_msg;
+        bubble(printing_msg);
         delete msg;
     } else {
         forwardMessage(msg);
     }
 }
 void Txc3::forwardMessage(cMessage *msg) {
+    //increment hopcount
+    TicTocMsg13 *casted_msg=check_and_cast<TicTocMsg13 *>(msg);
+    //casted_msg->setHopcount(casted_msg->getHopcount()+1);
+
     int n = gateSize("out");
     //selecting a random number between 0 to n-1. Not for each node the gate size might vary.
     int k = intuniform(0, n - 1);
-    //bubble("");
-    EV << "forwarding on port k=" << k << " at node=" << getIndex();
+
+    char *printing_msg;
+    sprintf(printing_msg,"forwarding on port k=%d at node=%d",k,getIndex());
+    bubble(printing_msg);
+    EV <<printing_msg;
     send(msg, "out", k);
 }

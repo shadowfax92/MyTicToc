@@ -18,19 +18,20 @@
 /**
  * Class generated from <tt>TicTocMsg13.msg</tt> by opp_msgc.
  * <pre>
- * message TicTocMsg13 {
- *     int hopcount = 0;
+ * message TicTocMsg13
+ * {
  *     int source;
  *     int destination;
+ *     int hopcount = 0;
  * }
  * </pre>
  */
 class TicTocMsg13 : public ::cMessage
 {
   protected:
-    int hopcount_var;
     int source_var;
     int destination_var;
+    int hopcount_var;
 
   private:
     void copy(const TicTocMsg13& other);
@@ -49,12 +50,12 @@ class TicTocMsg13 : public ::cMessage
     virtual void parsimUnpack(cCommBuffer *b);
 
     // field getter/setter methods
-    virtual int getHopcount() const;
-    virtual void setHopcount(int hopcount);
     virtual int getSource() const;
     virtual void setSource(int source);
     virtual int getDestination() const;
     virtual void setDestination(int destination);
+    virtual int getHopcount() const;
+    virtual void setHopcount(int hopcount);
 };
 
 inline void doPacking(cCommBuffer *b, TicTocMsg13& obj) {obj.parsimPack(b);}
