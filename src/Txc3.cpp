@@ -22,7 +22,7 @@ TicTocMsg13 *Txc3::generateMessage() {
     if (src == dest) {
         dest++;
     }
-    char *msg_name;
+    char msg_name[30];
     sprintf(msg_name, "tictoc message src=%d destination=%d", src, dest);
     TicTocMsg13 *msg = new TicTocMsg13(msg_name);
     msg->setSource(src);
@@ -38,7 +38,7 @@ void Txc3::handleMessage(cMessage *msg) {
 
     //when message arrives at destination 3 then message has arrived
     if (casted_msg->getDestination()==getIndex()) {
-        char *printing_msg;
+        char printing_msg[50];
         sprintf(printing_msg,"message arrived at destination=%d and hopcount",getIndex());
         EV <<printing_msg;
         bubble(printing_msg);
@@ -56,7 +56,7 @@ void Txc3::forwardMessage(cMessage *msg) {
     //selecting a random number between 0 to n-1. Not for each node the gate size might vary.
     int k = intuniform(0, n - 1);
 
-    char *printing_msg;
+    char printing_msg[50];
     sprintf(printing_msg,"forwarding on port k=%d at node=%d",k,getIndex());
     bubble(printing_msg);
     EV <<printing_msg;
