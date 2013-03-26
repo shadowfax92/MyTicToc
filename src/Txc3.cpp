@@ -23,6 +23,7 @@ void Txc3::handleMessage(cMessage *msg)
     if(getIndex()==3)
     {
         EV<< "message arrived at the destination 3";
+        bubble("message arrived at destination 3");
         delete msg;
     }
     else
@@ -35,6 +36,7 @@ void Txc3::forwardMessage(cMessage *msg)
     int n=gateSize("out");
     //selecting a random number between 0 to n-1. Not for each node the gate size might vary.
     int k=intuniform(0,n-1);
+    //bubble("");
     EV << "forwarding on port k="<<k<<" at node="<<getIndex();
     send(msg,"out",k);
 }
