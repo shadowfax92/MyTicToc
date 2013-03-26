@@ -16,6 +16,7 @@ public:
     virtual void initialize();
     virtual void handleMessage(cMessage *msg);
     virtual void forwardMessage(cMessage *msg);
+    virtual TicTocMsg13 generateMessage();
 };
 
 #endif /* TXC3_H_ */
